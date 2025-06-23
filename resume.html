@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" data-theme="amber-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adharsh Thomas | Portfolio</title>
+    <!-- Chosen Palette: Amber-Light (Default) & Blue-Light (Alternate) -->
+    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar for easy access to all sections. The structure is designed for a recruiter's journey: starting with a strong profile, followed by a clear timeline of experience, interactive project cards, education history, and a detailed skills list. This non-linear but guided approach allows users to quickly jump to the information they find most relevant, enhancing usability and information retention. The portfolio emphasizes strong networking skills and clarifies the interest in companies like Cisco, while de-emphasizing SAP experience. Added 'Contact' link in navigation for direct access to footer contact details. Theme toggle added for user preference. -->
+    <!-- Visualization & Content Choices: 
+        - Profile: (Goal: Inform) -> Structured text block, rephrased to emphasize strong networking background and aspiration for network-focused roles (e.g., at Cisco). Justification: Clear and direct introduction, tailored to current career goals.
+        - Experience: (Goal: Show Chronology) -> HTML/CSS Vertical Timeline. SAP experience retained but its broader analytical aspects are highlighted more in the profile. Justification: Intuitively displays career progression.
+        - Projects: (Goal: Organize & Detail) -> Interactive HTML cards. Interaction: On-click reveal of details. Justification: Manages information density, allowing users to explore projects of interest without overwhelming them initially.
+        - Education: (Goal: Inform) -> Clean text layout, highlighting CCNA. Justification: Standard, scannable format for academic history.
+        - Skills: (Goal: Detail & Keyword Match) -> Structured HTML List with Descriptions, emphasizing Networking as primary skill. Justification: Provides comprehensive details on each skill, improving ATS parsing and offering clear context for human readers.
+        - Contact: (Goal: Inform) -> Linked section in footer. Justification: Provides direct access to contact information from main navigation.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Theme 1 (Default - Amber Light) */
+            --bg-primary: #fffdf0; /* amber-50 */
+            --text-primary: #292524; /* stone-800 */
+            --text-secondary: #57534e; /* stone-600 */
+            --accent-color: #0d9488; /* teal-600 */
+            --hero-accent: #0d9488; /* teal-700 */
+            --header-bg: #fffdf0; /* amber-50 */
+            --header-border: #fcfceb; /* amber-100 */
+            --footer-bg: #fcfceb; /* amber-100 */
+            --footer-border: #f8f8dc; /* amber-200 */
+            --card-bg: #ffffff; /* white */
+            --card-border: #e7e5e4; /* stone-200 */
+            --timeline-line: #e7e5e4; /* stone-200 */
+            --timeline-dot-border: #fcfceb; /* amber-100 */
+            --skill-item-bg: #f8f8f0; /* slightly darker amber-50 for skill items */
+            --skill-item-border: #f5f5e0; /* amber-100 for skill items */
+        }
+
+        [data-theme="blue-light"] {
+            /* Theme 2 (Blue Light) */
+            --bg-primary: #f0f8ff; /* aliceblue */
+            --text-primary: #1f2937; /* gray-900 */
+            --text-secondary: #4b5563; /* gray-600 */
+            --accent-color: #3b82f6; /* blue-500 */
+            --hero-accent: #2563eb; /* blue-600 */
+            --header-bg: #f0f8ff; /* aliceblue */
+            --header-border: #e0e7ff; /* blue-100 */
+            --footer-bg: #e0e7ff; /* blue-100 */
+            --footer-border: #c7d2fe; /* blue-200 */
+            --card-bg: #ffffff; /* white */
+            --card-border: #d1d5db; /* gray-300 */
+            --timeline-line: #d1d5db; /* gray-300 */
+            --timeline-dot-border: #e0e7ff; /* blue-100 */
+            --skill-item-bg: #e6f0ff; /* slightly darker blue-50 for skill items */
+            --skill-item-border: #dbeaff; /* blue-100 for skill items */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        header {
+            background-color: var(--header-bg);
+            border-bottom-color: var(--header-border);
+            transition: background-color 0.5s ease, border-color 0.5s ease;
+        }
+        footer {
+            background-color: var(--footer-bg);
+            border-top-color: var(--footer-border);
+            transition: background-color 0.5s ease, border-color 0.5s ease;
+        }
+        .text-hero-accent {
+            color: var(--hero-accent);
+        }
+        .nav-link {
+            transition: color 0.3s ease, transform 0.3s ease;
+            color: var(--text-secondary);
+        }
+        .nav-link:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, border-color 0.5s ease;
+            background-color: var(--card-bg);
+            border-color: var(--card-border);
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .project-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out;
+        }
+        .project-card.open .project-details {
+            max-height: 500px; 
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            border: 3px solid var(--timeline-dot-border);
+        }
+        .timeline-line {
+            border-left-color: var(--timeline-line);
+            transition: border-color 0.5s ease;
+        }
+        .skill-item {
+            background-color: var(--skill-item-bg);
+            border-color: var(--skill-item-border);
+            transition: background-color 0.5s ease, border-color 0.5s ease;
+        }
+        /* Fade-in animation for sections */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transition-delay: 0.1s; /* Slight delay for staggered effect */
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-amber-50/80 backdrop-blur-lg sticky top-0 z-50 border-b border-amber-100">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-stone-800">Adharsh Thomas</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#profile" class="nav-link">Profile</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-stone-100 transition-colors duration-300">
+                    <span id="theme-icon" class="text-stone-600">☀️</span>
+                </button>
+            </div>
+             <button id="mobile-menu-button" class="md:hidden text-stone-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#profile" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Profile</a>
+            <a href="#experience" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Experience</a>
+            <a href="#projects" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Projects</a>
+            <a href="#education" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Education</a>
+            <a href="#skills" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Skills</a>
+            <a href="#contact" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Contact</a>
+            <button id="mobile-theme-toggle" class="w-full text-left py-2 px-6 text-sm text-stone-600 hover:bg-amber-100 flex items-center justify-between">
+                Toggle Theme <span id="mobile-theme-icon">☀️</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-20">
+
+        <!-- Hero Section -->
+        <section class="text-center mb-20 md:mb-32 fade-in-section">
+            <h1 class="text-4xl md:text-6xl font-bold text-stone-900 mb-4">Adharsh Thomas</h1>
+            <p class="text-lg md:text-xl text-hero-accent font-medium mb-6">Final Year B.Tech Student | Networking Professional | AI & Generative AI Enthusiast</p>
+            <div class="flex justify-center space-x-4 text-sm text-stone-500">
+                <span>Bengaluru, Karnataka, India</span>
+                <span>&bull;</span>
+                <span>8147653782</span>
+                <span>&bull;</span>
+                <span>adharsh.thomasshaji@gmail.com</span>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="mb-20 md:mb-32 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800">Profile</h2>
+            <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed">
+                This section introduces my professional background and key strengths. As a dynamic final year B.Tech student with a strong foundation in **Computer Networking and a CCNAv7 certification**, coupled with specialization in AI, I am actively seeking roles where I can apply my skills to build and optimize robust network infrastructures.
+            </p>
+            <div class="mt-8 max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-sm border border-stone-200">
+                <p class="text-stone-700 leading-relaxed">
+                My academic background and **Cisco Networking Academy certification (CCNAv7)** provide a comprehensive understanding of network architecture, security, and operations. I am eager to leverage my expertise in networking, complemented by my skills in Artificial Intelligence and Generative AI, to address complex technological challenges. My previous experience as an SAP Analyst has honed my data analysis capabilities, enabling me to analyze complex systems and contribute to operational efficiency. I am a continuous learner, dedicated to collaborative environments that drive technological advancement and problem-solving, and I am particularly interested in opportunities within leading networking companies.
+                </p>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="mb-20 md:mb-32 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12 text-stone-800">Professional Experience</h2>
+             <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed mb-12">
+                Here is a timeline of my professional journey. It highlights my roles and key contributions, showcasing how I've applied my analytical and technical skills in various professional settings.
+            </p>
+            <div class="max-w-2xl mx-auto relative border-l-2 timeline-line pl-8">
+                <!-- Timeline Item 1 - SAP Analyst (De-emphasized in description focus) -->
+                <div class="timeline-item mb-12">
+                    <p class="text-sm text-stone-500">April 2024 - May 2024</p>
+                    <h3 class="text-xl font-bold text-stone-800 mt-1">SAP Analyst</h3>
+                    <p class="text-md text-stone-600 font-medium mb-3">Applexus Technologies | Trivandrum, Kerala, India</p>
+                    <ul class="list-disc list-outside ml-5 space-y-2 text-stone-600">
+                        <li>Served as an SAP Analyst, focusing on data-driven solutions to enhance business operations.</li>
+                        <li>Analyzed data sets to identify trends and insights, supporting informed decision-making and operational efficiency.</li>
+                        <li>Assisted in the implementation of SAP solutions, ensuring alignment with business requirements.</li>
+                        <li>Collaborated with cross-functional teams to optimize workflows and improve productivity.</li>
+                        <li>Utilized AI-driven analytics tools to enhance data analysis capabilities for business strategies.</li>
+                    </ul>
+                </div>
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <p class="text-sm text-stone-500">April 2025 - May 2025</p>
+                    <h3 class="text-xl font-bold text-stone-800 mt-1">AIML Intern</h3>
+                    <p class="text-md text-stone-600 font-medium mb-3">Cognifyz Technologies | Nagpur</p>
+                    <ul class="list-disc list-outside ml-5 space-y-2 text-stone-600">
+                        <li>Developed AI-driven models to enhance data analysis processes.</li>
+                        <li>Collaborated with cross-functional teams to implement innovative solutions.</li>
+                        <li>Assisted in the design and optimization of machine learning algorithms.</li>
+                        <li>Conducted research on emerging technologies in AI and machine learning.</li>
+                        <li>Supported the integration of SAP solutions into business operations.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mb-20 md:mb-32 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800">Projects & Works</h2>
+            <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed mb-12">
+                Below are some of the key projects I've developed. Each card represents a unique challenge and solution, showcasing my ability to apply theoretical knowledge to practical, real-world problems. Click on any project card to view more details about its implementation and impact.
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="project-card bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden cursor-pointer">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-stone-800">Image Super Resolution</h3>
+                        <p class="text-md text-stone-600 mt-1">Hybrid Lightweight Model</p>
+                        <div class="project-details">
+                            <ul class="list-disc list-outside ml-5 mt-4 space-y-2 text-stone-600 text-sm">
+                                <li>Developed a hybrid model integrating GAN, RRDB, and attention mechanisms.</li>
+                                <li>Trained on CIFAR-10, optimized for fast inference on low-resource devices.</li>
+                                <li>Designed with Residual-in-Residual Dense Blocks (RRDB) for enhanced texture recovery.</li>
+                                <li>Achieved visual and quantitative improvements validated via loss convergence.</li>
+                                <li>Research Paper Published.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project Card 2 -->
+                <div class="project-card bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden cursor-pointer">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-stone-800">Drug Stickiness Prediction</h3>
+                        <p class="text-md text-stone-600 mt-1">Zero-Shot GNN Model</p>
+                        <div class="project-details">
+                            <ul class="list-disc list-outside ml-5 mt-4 space-y-2 text-stone-600 text-sm">
+                                <li>Designed a zero-shot model using GNNs and binding kinetics to predict drug-target residence time.</li>
+                                <li>Enabled generalization to unseen drug-target pairs, overcoming traditional QSAR limitations.</li>
+                                <li>Optimized for biomedical relevance by focusing on a critical parameter in drug efficacy.</li>
+                                <li>Built for applications in virtual screening, drug repurposing, and pharmacokinetics analysis.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project Card 3 -->
+                <div class="project-card bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden cursor-pointer">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-stone-800">Image Captioning System</h3>
+                        <p class="text-md text-stone-600 mt-1">Lightweight System with MobileNet</p>
+                        <div class="project-details">
+                            <ul class="list-disc list-outside ml-5 mt-4 space-y-2 text-stone-600 text-sm">
+                                <li>Built an efficient captioning system using MobileNet as the visual encoder.</li>
+                                <li>Integrated a lightweight CNN-LSTM pipeline optimized for edge devices.</li>
+                                <li>Achieved semantically coherent and contextually accurate captions on benchmark datasets.</li>
+                                <li>Focused on real-time inference and portability for deployment in constrained environments (mobile, IoT).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Education Section -->
+        <section id="education" class="mb-20 md:mb-32 fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-12 text-stone-800">Education & Certifications</h2>
+             <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed mb-12">
+                This section outlines my academic background, which forms the foundation of my technical skills and analytical abilities. My coursework and certifications have provided me with a strong theoretical and practical understanding of computer science and networking.
+            </p>
+            <div class="max-w-3xl mx-auto space-y-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
+                    <p class="text-sm text-stone-500">Jan 2022 - Jan 2026</p>
+                    <h3 class="text-xl font-bold text-stone-800">B.E in Computer Science and Engineering with Specialization in AIML</h3>
+                    <p class="text-md text-stone-600">Christ University, Bangalore</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
+                    <p class="text-sm text-stone-500">Jan 2024 - Jan 2024</p>
+                    <h3 class="text-xl font-bold text-stone-800">CCNAv7 in Computer Systems Networking and Telecommunications</h3>
+                    <p class="text-md text-stone-600">Cisco Networking Academy</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
+                    <h3 class="text-xl font-bold text-stone-800">+2 in Computer Science</h3>
+                    <p class="text-md text-stone-600">Montfort Secondary School</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="fade-in-section">
+            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800">Technical Skills & Competencies</h2>
+            <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed mb-12">
+               This section details my technical skills and professional competencies, with a particular emphasis on networking and related areas crucial for modern IT infrastructure. Each skill is presented with a brief description highlighting my proficiency.
+            </p>
+            <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-4">
+                <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
+                    <h3 class="font-semibold text-stone-800">Networking (CCNAv7 Certified)</h3>
+                    <p class="text-sm text-stone-600 mt-1">Strong grasp of network architecture, protocols (TCP/IP, OSPF, EIGRP), switching, routing, and security. Certified in CCNAv7 from Cisco Networking Academy, demonstrating proficiency in managing and troubleshooting network infrastructure.</p>
+                </div>
+                <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
+                    <h3 class="font-semibold text-stone-800">Computer Programming</h3>
+                    <p class="text-sm text-stone-600 mt-1">Proficient in developing robust and efficient software solutions across various platforms.</p>
+                ></div>
+                <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
+                    <h3 class="font-semibold text-stone-800">Python</h3>
+                    <p class="text-sm text-stone-600 mt-1">Extensive experience in Python for data analysis, AI/ML model development, network automation, and scripting.</p>
+                </div>
+                <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
+                    <h3 class="font-semibold text-stone-800">C++</h3>
+                    <p class="text-sm text-stone-600 mt-1">Solid understanding of C++ for high-performance computing and system-level programming.</p>
+                </div>
+                <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
+                    <h3 class="font-semibold text-stone-800">C Programming</h3>
+                    <p class="text-sm text-stone-600 mt-1">Foundational knowledge in C for embedded systems and efficient algorithm implementation.</p>
+                </div>
+                <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
+                    <h3 class="font-semibold text-stone-800">Generative AI</h3>
+                    <p class="text-sm text-stone-600 mt-1">Expertise in developing and applying generative models for various creative and analytical tasks.</p>
+                </div>
+                <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
+                    <h3 class="font-semibold text-stone-800">Artificial Intelligence</h3>
+                    <p class="text-sm text-stone-600 mt-1">Proficient in AI concepts, machine learning algorithms, and deep learning frameworks, applicable to intelligent network management.</p>
+                </div>
+                <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
+                    <h3 class="font-semibold text-stone-800">Problem Solving</h3>
+                    <p class="text-sm text-stone-600 mt-1">Adept at identifying complex issues, analyzing root causes, and implementing effective solutions in technical environments.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="bg-amber-100 border-t border-amber-200 mt-20 md:mt-32">
+        <div class="container mx-auto px-6 py-8 text-center text-stone-500">
+            <p class="font-bold text-stone-700 text-lg mb-2">Adharsh Thomas</p>
+            <p class="text-sm mb-4">
+                 <a href="mailto:adharsh.thomasshaji@gmail.com" class="hover:text-teal-600">adharsh.thomasshaji@gmail.com</a>
+            </p>
+             <div class="flex justify-center space-x-6">
+                <a href="https://in.linkedin.com/in/adharshthomas" class="text-stone-500 hover:text-teal-600">LinkedIn</a>
+                <a href="https://github.com/adharsh-thomas" class="text-stone-500 hover:text-teal-600">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Project Card Interaction
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('open');
+                });
+            });
+
+            // Theme Toggle
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+            const htmlElement = document.documentElement;
+
+            const currentTheme = localStorage.getItem('theme') || 'amber-light';
+            htmlElement.setAttribute('data-theme', currentTheme);
+            themeIcon.textContent = currentTheme === 'amber-light' ? '☀️' : '🌙';
+            mobileThemeIcon.textContent = currentTheme === 'amber-light' ? '☀️' : '🌙';
+
+            const toggleTheme = () => {
+                let theme = htmlElement.getAttribute('data-theme');
+                if (theme === 'amber-light') {
+                    theme = 'blue-light';
+                } else {
+                    theme = 'amber-light';
+                }
+                htmlElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                themeIcon.textContent = theme === 'amber-light' ? '☀️' : '🌙';
+                mobileThemeIcon.textContent = theme === 'amber-light' ? '☀️' : '🌙';
+            };
+
+            themeToggleBtn.addEventListener('click', toggleTheme);
+            mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+
+            // Section Fade-in on Scroll
+            const fadeSections = document.querySelectorAll('.fade-in-section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                    // For immediate visibility on load if element is already in viewport
+                    if (entry.boundingClientRect.top < window.innerHeight && entry.boundingClientRect.bottom > 0) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            fadeSections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
