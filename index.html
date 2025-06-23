@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adharsh Thomas | Portfolio</title>
+    <!-- Favicon - Replace with your own favicon.ico or .png -->
+    <link rel="icon" href="https://placehold.co/32x32/0d9488/ffffff?text=AT" type="image/png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,8 +89,11 @@
             background-color: var(--accent-color);
             transition: width 0.3s ease-out;
         }
-        .nav-link:hover::after {
+        .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
+        }
+        .nav-link.active {
+            color: var(--accent-color);
         }
         .project-card, .skill-item, .education-item {
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, border-color 0.5s ease;
@@ -233,6 +239,36 @@
             color: var(--text-primary);
         }
 
+        /* Scroll to Top Button */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            padding: 0.75rem;
+            box-shadow: var(--general-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease;
+            z-index: 999;
+        }
+        #scroll-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+        #scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Responsive font sizes and padding adjustments for better "sexiness" */
         .text-4xl { font-size: 2.25rem; } /* Base for mobile */
         @media (min-width: 768px) { /* md */
@@ -256,11 +292,11 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold text-stone-800">Adharsh Thomas</a>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#profile" class="nav-link">Profile</a>
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#education" class="nav-link">Education</a>
-                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#profile" class="nav-link" data-section="profile">Profile</a>
+                <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                <a href="#education" class="nav-link" data-section="education">Education</a>
+                <a href="#skills" class="nav-link" data-section="skills">Skills</a>
                 <button id="open-contact-modal" class="nav-link bg-transparent border-none cursor-pointer p-0 m-0 text-inherit hover:text-current hover:transform-none">Contact</button>
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-stone-100 transition-colors duration-300">
                     <span id="theme-icon" class="text-stone-600">☀️</span>
@@ -272,11 +308,11 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#profile" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Profile</a>
-            <a href="#experience" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Experience</a>
-            <a href="#projects" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Projects</a>
-            <a href="#education" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Education</a>
-            <a href="#skills" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Skills</a>
+            <a href="#profile" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100" data-section="profile">Profile</a>
+            <a href="#experience" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100" data-section="experience">Experience</a>
+            <a href="#projects" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100" data-section="projects">Projects</a>
+            <a href="#education" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100" data-section="education">Education</a>
+            <a href="#skills" class="block py-2 px-6 text-sm text-stone-600 hover:bg-amber-100" data-section="skills">Skills</a>
             <button id="open-contact-modal-mobile" class="w-full text-left py-2 px-6 text-sm text-stone-600 hover:bg-amber-100">Contact</button>
             <button id="mobile-theme-toggle" class="w-full text-left py-2 px-6 text-sm text-stone-600 hover:bg-amber-100 flex items-center justify-between">
                 Toggle Theme <span id="mobile-theme-icon">☀️</span>
@@ -520,6 +556,13 @@
         </div>
     </footer>
 
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
     <!-- Contact Modal -->
     <div id="contact-modal" class="modal-overlay">
         <div class="modal-content">
@@ -660,6 +703,50 @@
                 if (e.key === 'Escape' && contactModal.classList.contains('open')) {
                     closeModal();
                 }
+            });
+
+            // Scroll to Top Button Logic
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // Show button after scrolling 300px
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+            });
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Active Navigation Link Highlight
+            const navLinks = document.querySelectorAll('.nav-link[data-section]');
+            const sections = document.querySelectorAll('main section[id]');
+
+            const sectionObserverOptions = {
+                root: null,
+                rootMargin: '-50% 0px -50% 0px', // Highlight when middle of section is in viewport
+                threshold: 0
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        const correspondingLink = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
+                        if (correspondingLink) {
+                            correspondingLink.classList.add('active');
+                        }
+                    }
+                });
+            }, sectionObserverOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
             });
         });
     </script>
