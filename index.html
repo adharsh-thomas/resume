@@ -4,8 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adharsh Thomas | Portfolio</title>
-    <!-- Favicon - Replace with your own favicon.ico or .png -->
+    <!-- Favicon -->
     <link rel="icon" href="https://placehold.co/32x32/0d9488/ffffff?text=AT" type="image/png">
+    
+    <!-- SEO & Open Graph Meta Tags -->
+    <meta name="description" content="Adharsh Thomas's professional portfolio showcasing networking, machine learning, and programming skills, projects, and experience.">
+    <meta name="keywords" content="Adharsh Thomas, portfolio, resume, networking, machine learning, AI, CCNA, Python, C++, technical intern, software development, data science, deep learning, neural networks">
+    <meta name="author" content="Adharsh Thomas">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://adharsh-thomas.github.io/resume/"> <!-- Replace with your actual deployed URL -->
+    <meta property="og:title" content="Adharsh Thomas | Portfolio">
+    <meta property="og:description" content="Adharsh Thomas's professional portfolio showcasing networking, machine learning, and programming skills, projects, and experience.">
+    <meta property="og:image" content="https://placehold.co/1200x630/0d9488/ffffff?text=Adharsh+Thomas+Portfolio"> <!-- Replace with a custom preview image URL -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://adharsh-thomas.github.io/resume/"> <!-- Replace with your actual deployed URL -->
+    <meta property="twitter:title" content="Adharsh Thomas | Portfolio">
+    <meta property="twitter:description" content="Adharsh Thomas's professional portfolio showcasing networking, machine learning, and programming skills, projects, and experience.">
+    <meta property="twitter:image" content="https://placehold.co/1200x630/0d9488/ffffff?text=Adharsh+Thomas+Portfolio"> <!-- Replace with a custom preview image URL -->
+
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -269,6 +289,29 @@
             visibility: visible;
         }
 
+        /* Skills Matrix specific styles */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item .skill-level-bar {
+            width: 100%;
+            background-color: var(--card-border); /* Light bar background */
+            border-radius: 0.25rem;
+            height: 8px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .skill-item .skill-level-fill {
+            height: 100%;
+            background-color: var(--accent-color); /* Filled bar color */
+            border-radius: 0.25rem;
+            transition: width 0.7s ease-out; /* Smooth animation for fill */
+        }
+        
         /* Responsive font sizes and padding adjustments for better "sexiness" */
         .text-4xl { font-size: 2.25rem; } /* Base for mobile */
         @media (min-width: 768px) { /* md */
@@ -337,7 +380,9 @@
 
         <!-- Profile Section -->
         <section id="profile" class="mb-20 md:mb-32 fade-in-section">
-            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800">Profile</h2>
+            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800 flex items-center justify-center">
+                <span class="mr-3">👤</span> Profile
+            </h2>
             <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed">
                 This section introduces my professional background and key strengths. As a dynamic final year B.Tech student with a strong foundation in <strong>Computer Networking and a CCNAv7 certification</strong>, coupled with specialization in advanced computing, I am actively seeking roles where I can apply my skills to build and optimize robust network infrastructures.
             </p>
@@ -350,7 +395,9 @@
 
         <!-- Experience Section -->
         <section id="experience" class="mb-20 md:mb-32 fade-in-section">
-            <h2 class="text-3xl font-bold text-center mb-12 text-stone-800">Professional Experience</h2>
+            <h2 class="text-3xl font-bold text-center mb-12 text-stone-800 flex items-center justify-center">
+                <span class="mr-3">💼</span> Professional Experience
+            </h2>
              <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed mb-12">
                 Here is a timeline of my professional journey. It highlights my roles and key contributions, showcasing how I've applied my analytical and technical skills in various professional settings.
             </p>
@@ -386,7 +433,9 @@
 
         <!-- Projects Section -->
         <section id="projects" class="mb-20 md:mb-32 fade-in-section">
-            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800">Projects & Works</h2>
+            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800 flex items-center justify-center">
+                <span class="mr-3">🚀</span> Projects & Works
+            </h2>
             <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed mb-12">
                 Below are some of the key projects I've developed. Each card represents a unique challenge and solution, showcasing my ability to apply theoretical knowledge to practical, real-world problems. Click on any project card to view more details about its implementation and impact.
             </p>
@@ -404,7 +453,7 @@
                                 <li>Trained on CIFAR-10, optimized for fast inference on low-resource devices.</li>
                                 <li>Designed with Residual-in-Residual Dense Blocks (RRDB) for enhanced texture recovery.</li>
                                 <li>Achieved visual and quantitative improvements validated via loss convergence.</li>
-                                <li>Research Paper Published.</li>
+                                <li>Research Paper Published. <a href="https://github.com/adharsh-thomas/Image-Super-Resolution" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline">View GitHub Repo</a></li>
                             </ul>
                         </div>
                     </div>
@@ -422,6 +471,7 @@
                                 <li>Enabled generalization to unseen drug-target pairs, overcoming traditional supervised QSAR limitations.</li>
                                 <li>Optimized for biomedical relevance by focusing on a critical parameter in drug efficacy.</li>
                                 <li>Built for applications in virtual screening, drug repurposing, and pharmacokinetics analysis.</li>
+                                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline">Link to Project/Repo (Coming Soon)</a></li>
                             </ul>
                         </div>
                     </div>
@@ -439,6 +489,7 @@
                                 <li>Integrated a lightweight CNN-LSTM pipeline optimized for edge devices.</li>
                                 <li>Achieved semantically coherent and contextually accurate captions on benchmark datasets.</li>
                                 <li>Focused on real-time inference and portability for deployment in constrained environments (mobile, IoT).</li>
+                                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-teal-600 hover:underline">Link to Project/Repo (Coming Soon)</a></li>
                             </ul>
                         </div>
                     </div>
@@ -448,7 +499,9 @@
 
          <!-- Education Section -->
         <section id="education" class="mb-20 md:mb-32 fade-in-section">
-            <h2 class="text-3xl font-bold text-center mb-12 text-stone-800">Education & Certifications</h2>
+            <h2 class="text-3xl font-bold text-center mb-12 text-stone-800 flex items-center justify-center">
+                <span class="mr-3">🎓</span> Education & Certifications
+            </h2>
              <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed mb-12">
                 This section outlines my academic background, which forms the foundation of my technical skills and analytical abilities. My coursework and certifications have provided me with a strong theoretical and practical understanding of computer science and networking.
             </p>
@@ -472,65 +525,77 @@
 
         <!-- Skills Section -->
         <section id="skills" class="fade-in-section">
-            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800">Technical Skills & Competencies</h2>
+            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800 flex items-center justify-center">
+                <span class="mr-3">🛠️</span> Technical Skills & Competencies
+            </h2>
             <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed mb-12">
                This section details my technical skills and professional competencies, with a particular emphasis on networking and advanced machine learning, crucial for modern IT infrastructure and innovative solutions. Each skill is presented with a brief description highlighting my proficiency.
             </p>
-            <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-4">
+            <div class="max-w-3xl mx-auto skill-grid">
                 <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-stone-800 flex items-center">
+                    <h3 class="font-semibold text-stone-800 flex items-center mb-1">
                         🌐 Networking (CCNAv7 Certified)
                     </h3>
-                    <p class="text-sm text-stone-600 mt-1">Strong grasp of network architecture, protocols (TCP/IP, OSPF, EIGRP), switching, routing, and security. Certified in CCNAv7 from Cisco Networking Academy, demonstrating proficiency in managing and troubleshooting network infrastructure.</p>
+                    <p class="text-sm text-stone-600">Strong grasp of network architecture, protocols (TCP/IP, OSPF, EIGRP), switching, routing, and security. Certified in CCNAv7 from Cisco Networking Academy, demonstrating proficiency in managing and troubleshooting network infrastructure.</p>
+                    <div class="skill-level-bar"><div class="skill-level-fill" style="width: 95%;"></div></div>
                 </div>
                 <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-stone-800 flex items-center">
+                    <h3 class="font-semibold text-stone-800 flex items-center mb-1">
                         🧠 Machine Learning & Neural Networks
                     </h3>
-                    <p class="text-sm text-stone-600 mt-1">Expert in designing, training, and deploying machine learning models, with deep proficiency in various neural network architectures (CNNs, RNNs, Transformers) and deep learning frameworks.</p>
+                    <p class="text-sm text-stone-600">Expert in designing, training, and deploying machine learning models, with deep proficiency in various neural network architectures (CNNs, RNNs, Transformers) and deep learning frameworks.</p>
+                    <div class="skill-level-bar"><div class="skill-level-fill" style="width: 90%;"></div></div>
                 </div>
                 <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-stone-800 flex items-center">
+                    <h3 class="font-semibold text-stone-800 flex items-center mb-1">
                         📊 Data Modeling & Algorithms
                     </h3>
-                    <p class="text-sm text-stone-600 mt-1">Expertise in designing and implementing data models and algorithms for various analytical tasks and complex problem-solving.</p>
+                    <p class="text-sm text-stone-600">Expertise in designing and implementing data models and algorithms for various analytical tasks and complex problem-solving.</p>
+                    <div class="skill-level-bar"><div class="skill-level-fill" style="width: 88%;"></div></div>
                 </div>
                 <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-stone-800 flex items-center">
+                    <h3 class="font-semibold text-stone-800 flex items-center mb-1">
                         🐍 Python
                     </h3>
-                    <p class="text-sm text-stone-600 mt-1">Extensive experience in Python for data analysis, complex algorithm development, machine learning, network automation, and scripting.</p>
+                    <p class="text-sm text-stone-600">Extensive experience in Python for data analysis, complex algorithm development, machine learning, network automation, and scripting.</p>
+                    <div class="skill-level-bar"><div class="skill-level-fill" style="width: 92%;"></div></div>
                 </div>
                 <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-stone-800 flex items-center">
+                    <h3 class="font-semibold text-stone-800 flex items-center mb-1">
                         ➕ C++
                     </h3>
-                    <p class="text-sm text-stone-600 mt-1">Solid understanding of C++ for high-performance computing and system-level programming.</p>
+                    <p class="text-sm text-stone-600">Solid understanding of C++ for high-performance computing and system-level programming.</p>
+                    <div class="skill-level-bar"><div class="skill-level-fill" style="width: 80%;"></div></div>
                 </div>
                 <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-stone-800 flex items-center">
+                    <h3 class="font-semibold text-stone-800 flex items-center mb-1">
                         💻 C Programming
                     </h3>
-                    <p class="text-sm text-stone-600 mt-1">Foundational knowledge in C for embedded systems and efficient algorithm implementation.</p>
+                    <p class="text-sm text-stone-600">Foundational knowledge in C for embedded systems and efficient algorithm implementation.</p>
+                    <div class="skill-level-bar"><div class="skill-level-fill" style="width: 75%;"></div></div>
                 </div>
                 <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-stone-800 flex items-center">
+                    <h3 class="font-semibold text-stone-800 flex items-center mb-1">
                         ⚙️ Computer Programming
                     </h3>
-                    <p class="text-sm text-stone-600 mt-1">Proficient in developing robust and efficient software solutions across various platforms.</p>
+                    <p class="text-sm text-stone-600">Proficient in developing robust and efficient software solutions across various platforms.</p>
+                    <div class="skill-level-bar"><div class="skill-level-fill" style="width: 90%;"></div></div>
                 </div>
                 <div class="skill-item p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-stone-800 flex items-center">
+                    <h3 class="font-semibold text-stone-800 flex items-center mb-1">
                         💡 Problem Solving
                     </h3>
-                    <p class="text-sm text-stone-600 mt-1">Adept at identifying complex issues, analyzing root causes, and implementing effective solutions in technical environments.</p>
+                    <p class="text-sm text-stone-600">Adept at identifying complex issues, analyzing root causes, and implementing effective solutions in technical environments.</p>
+                    <div class="skill-level-bar"><div class="skill-level-fill" style="width: 95%;"></div></div>
                 </div>
             </div>
         </section>
 
         <!-- What's Next Section -->
         <section id="whats-next" class="mb-20 md:mb-32 fade-in-section">
-            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800">What's Next?</h2>
+            <h2 class="text-3xl font-bold text-center mb-4 text-stone-800 flex items-center justify-center">
+                <span class="mr-3">🌟</span> What's Next?
+            </h2>
             <p class="max-w-3xl mx-auto text-center text-stone-600 leading-relaxed mb-8">
                 I am passionate about contributing to the advancement of network technologies and intelligent systems. I am actively seeking challenging opportunities that allow me to apply my expertise in networking, machine learning, and programming to real-world problems, fostering innovation and efficiency. I thrive in dynamic, collaborative environments and am eager to join a team where I can continue to learn and grow.
             </p>
